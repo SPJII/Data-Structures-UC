@@ -10,32 +10,9 @@
 #include <string>
 #include <map>
 #include <cctype>
-
-
-
+#include 'Frequencies.h'
 
 using namespace std;
-
-// Prototype Function to calculate letter frequency ;SPJII
-map<char, double> calculateLetterFrequency(const string& text) {
-    map<char, int> letterCount;
-    int totalCharacters = 0;
-
-    for (char c : text) {
-        if (isalpha(c)) {
-            char lowercaseChar = tolower(c);
-            letterCount[lowercaseChar]++;
-            totalCharacters++;
-        }
-    }
-
-    map<char, double> letterFrequency;
-    for (const auto& pair : letterCount) {
-        letterFrequency[pair.first] = (static_cast<double>(pair.second) / totalCharacters) * 100.0;
-    }
-
-    return letterFrequency;
-}
 
 // Function to process a book file and update the CardCatalog.txt ;SPJII
 void processBook(fstream& iFile) {
@@ -48,7 +25,6 @@ void processBook(fstream& iFile) {
     //get passed the contents empty lines...peter pan text file has extra lines
     while(getline(iFile, line)) {
         if(line.empty()) continue;
-        
         else break;
     }
     
@@ -90,7 +66,7 @@ void processBook(fstream& iFile) {
     }
 
     // Calculate letter frequency
-    map<char, double> letterFrequency = calculateLetterFrequency(content);
+    float letterFrequency[26] = letterFreq(iFile);
 
     // Write to CardCatalog.txt
     ofstream catalog("CardCatalog.txt", ios::app);
@@ -111,9 +87,7 @@ void processBook(fstream& iFile) {
         cout << "Do you want to see the letter frequency? (yes/no): ";
         cin >> seeLetterFrequency;
         if (seeLetterFrequency == "yes") {
-            cout << title << " letter frequency:" << endl;
-            for (const auto& pair : letterFrequency) {
-                cout << pair.first << ": " << fixed << pair.second << "%" << endl;
+            cout << letFreqString(letterFrequency, title);
             }
         }
     }
@@ -163,6 +137,3 @@ int main() {
 
     return 0;
 }
-
-
-
