@@ -6,7 +6,6 @@
 //
 
 #include "Frequencies.h"
-         "
 #include <cctype>
 #include <fstream>
 #include <iostream>
