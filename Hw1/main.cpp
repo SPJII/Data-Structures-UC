@@ -10,12 +10,13 @@
 #include <string>
 #include <map>
 #include <cctype>
-#include 'Frequencies.h'
+#include "Frequencies.h"
 
 using namespace std;
 
 // Function to process a book file and update the CardCatalog.txt ;SPJII
 void processBook(fstream& iFile) {
+    Frequencies freq;
     string title, authorFull, line;
     string content;
     //from the files, we can just get the first two lines since both files start off similarly.
@@ -66,7 +67,8 @@ void processBook(fstream& iFile) {
     }
 
     // Calculate letter frequency
-    float letterFrequency[26] = letterFreq(iFile);
+    float * lf = freq.letterFreq(iFile);
+    //test line
 
     // Write to CardCatalog.txt
     ofstream catalog("CardCatalog.txt", ios::app);
@@ -81,21 +83,20 @@ void processBook(fstream& iFile) {
         catalog.close();
 
         cout << "Book information for '" << title << "' saved to CardCatalog.txt." << endl;
+        
 
         // Ask if the user wants to see letter frequency
         string seeLetterFrequency;
         cout << "Do you want to see the letter frequency? (yes/no): ";
         cin >> seeLetterFrequency;
         if (seeLetterFrequency == "yes") {
-            cout << letFreqString(letterFrequency, title);
+            cout << freq.letFreqString(lf, title);
             }
+        }     else {
+            cout << "Error: Unable to open CardCatalog.txt for writing." << endl;
         }
-    }
-    else {
-        cout << "Error: Unable to open CardCatalog.txt for writing." << endl;
-    }
     return;
-}
+    }
 
 int main() {
     // insert code here...

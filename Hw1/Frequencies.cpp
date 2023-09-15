@@ -9,7 +9,7 @@
  * It returns a pointer to a float array of size 26 containing the frequencies for each letter in 
  * alphabetical order.
  */
-float * const letterFreq(std::fstream& text) {
+float * const Frequencies::letterFreq(std::fstream& text) {
 	int total = 0;
 	static float letFreqs[26] = { 0 };
 
@@ -44,7 +44,7 @@ float * const letterFreq(std::fstream& text) {
  * Author: Ally Oh
  * Create a nicely formatted string to be used to display letter frequencies.
  */
-std::string const letFreqString(float freqs[], std::string title) {
+std::string const Frequencies::letFreqString(float freqs[], std::string title) {
 	std::string str = title + " letter frequency:\n";
 
 	for (char a = 65; a <= 90; a++) {
