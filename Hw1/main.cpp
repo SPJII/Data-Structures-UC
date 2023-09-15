@@ -87,6 +87,7 @@ struct bookInfo {
 
 void writeOutput(bookInfo book) {
   ofstream catalog("CardCatalog.txt", ios::app);
+  ofstream letterFreq("LetterFreq.txt", ios::app);
   if (catalog.is_open()) {
     catalog << "Title: " << book.title << endl;
     catalog << "Full Author: " << book.author << endl;
@@ -107,6 +108,7 @@ void writeOutput(bookInfo book) {
     cout << "Do you want to see the letter frequency? (yes/no): ";
     cin >> seeLetterFrequency;
     if (seeLetterFrequency[0] == 'y' || seeLetterFrequency[0] == 'Y') {
+      letterFreq << book.freq.letFreqString(book.lf, book.title) << endl;
       cout << book.freq.letFreqString(book.lf, book.title) << endl;
     }
   } else {
